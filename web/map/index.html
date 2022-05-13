@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Joystick Controls</title>
+
+    <meta charset="utf-8">
+    <title>map</title>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="application-name" content="map">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <script src="http://bbecquet.github.io/Leaflet.RotatedMarker/leaflet.rotatedMarker.js"></script>
+
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/jquery-2.2.4.min.js"></script>
+
+    <link href="../lib/jquery.mobile/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+    <script src="../lib/jquery.mobile/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="../lib/zipson.min.js"></script>
+
+    <script src="../lib/socket.io.min.js"></script>
+    <script src="../lib/NwLib.js"></script>
+    <script src="../NwWsClient.js"></script>
+
+    <script src="../initConn.js"></script>
+
+    <style>
+        body {
+            font-family: Courier, monospaced;
+            font-size: 10px;
+            font-weight: bold;
+
+        }
+
+        #eq>span {
+            height: 120px;
+            float: left;
+            margin: 15px
+        }
+
+        textarea.ui-input-text {
+            height: inherit !important
+        }
+
+        #map {
+            height: 500px;
+        }
+    </style>
+    <script>
+        window.oncontextmenu = function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+        };
+    </script>
+</head>
+
+<body>
+    <div id="map"></div>
+    <textarea name="" id="msg" style="width: 100%;" cols="30" rows="9"></textarea>
+
+    <script>
+        function showInfo() {
+            wsClient.callService('getInfo', {}, function (result) {
+                result = zipson.parse(result)
+                //var zipsonStringified = zipson.stringify(result, { detectUtcTimestamps: true });
+                //console.log(zipsonStringified.length, JSON.stringify(result).length);
+                //result = JSON.stringify(result)
+                $('#msg').empty();
+
+                for (const key in result) {
+                    if (Object.hasOwnProperty.call(result, key)) {
+                        const element = result[key];
+                        $('#msg').append(key + ": " + JSON.stringify(element) + '\n')
+
+                    }
+                }
+            })
+        }
+
+
+        $(function () {
+
+
+            // magnification with which the map will start
+            const zoom = 18;
+            // co-ordinates
+            const lat = 7.86824670;
+            const lng = 98.39706840;
+
+            // calling map
+
+            var arcgisonline = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+                // attribution:
+                //     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            })
+
+            var googleSat = L.tileLayer("https://mt0.google.com/vt?lyrs=s&x={x}&s=&y={y}&z={z}", {
+            })
+
+            var baseMaps = {
+
+                "googleSat": googleSat,
+                "arcgisonline": arcgisonline,
+            };
+
+            let config = {
+                minZoom: 7,
+                maxZoom: 18,
+                layers: [googleSat, arcgisonline]
+            };
+            const map = L.map("map", config).setView([lat, lng], zoom);
+
+            L.control.layers(baseMaps).addTo(map);
+
+
+            const funny = L.icon({
+                iconUrl: "../map/Rust__Cesna206.svg",
+                iconSize: [50, 58], // size of the icon
+                iconAnchor: [20, 58], // changed marker icon position
+                popupAnchor: [0, -60], // changed popup position
+            });
+
+
+            var pos = {
+                lat: 7.86824670,
+                lng: 98.39706840,
+            }
+            var rotationAngle = 0
+            this.marker = L.marker(pos, {
+                icon: funny,
+                rotationAngle: rotationAngle,
+                rotationOrigin: 'center'
+            }).addTo(map).bindPopup("test");
+
+            setInterval(() => {
+                pos.lat = pos.lat + 0.00001
+                this.marker.setLatLng(pos)
+                //rotationAngle++
+                //this.marker.setRotationAngle(rotationAngle)
+            }, 100);
+
+        })
+    </script>
+
+</body>
+
+</html>
