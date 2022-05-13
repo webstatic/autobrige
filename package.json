@@ -3,21 +3,6 @@
   "lockfileVersion": 1,
   "dependencies": {
     "async": "^3.2.3",
-    "backbone": "1.4.0",
-  
-    "lazy": "^1.0.11",
-    "mkdirp": "^0.5.1",
-    
-    "nedb": "^1.8.0",
-    "node-cmd": "^5.0.0",
-    "node-static": "^0.7.11",
-  
-    "request": "^2.74.0",
-  
-    "sqlite3": "^5.0.2",
-    "step": "^1.0.0",
-    "underscore": "^1.13.2",
-    "ws": "^8.4.2",
-    "zipson": "^0.2.12"
+    "backbone": "1.4.0"
   }
 }
