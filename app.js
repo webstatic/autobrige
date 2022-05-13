@@ -60,10 +60,23 @@ var listenCommand = function (commandPort) {
 
     //var httpServer = http.createServer(app);
     var appServer = http.createServer(function (request, response) {
-        request.addListener('end', function () {
-            file.serve(request, response);
 
-        }).resume();
+        if (request.url == "/service") {
+            console.log(request.url);
+
+            console.log(request.method);
+            request.addListener('end', function () {
+                response.writeHead(200, { 'Content-Type': 'application/json' });
+                response.write(JSON.stringify({ message: "Hello World", date: new Date() }));
+                response.end();
+            }).resume();
+        } else {
+            request.addListener('end', function () {
+                file.serve(request, response);
+            }).resume();
+        }
+
+
     });
 
 
