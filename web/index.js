@@ -3,7 +3,7 @@
 $(function () {
     var host = window.location.hostname;
     var port = window.location.port
-    var protocol = 'wss:';
+    var protocol = 'ws:';
     var url = protocol + '//' + host + ":" + port;
     console.log('url:', url);
     wsClient = new NwWsClient(url);
