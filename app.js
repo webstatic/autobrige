@@ -61,13 +61,13 @@ var listenCommand = function (commandPort) {
     //var httpServer = http.createServer(app);
     var appServer = http.createServer(function (request, response) {
 
-        if (request.url == "/service") {
-            console.log(request.url);
+        if (equest.method == "GET" && request.url.indexOf("/service") == 0) {
+            // console.log(request.url);
+            // console.log(request.method);
 
-            console.log(request.method);
             request.addListener('end', function () {
                 response.writeHead(200, { 'Content-Type': 'application/json' });
-                response.write(JSON.stringify({ message: "Hello World", date: new Date() }));
+                response.write(JSON.stringify({ message: request.url, date: new Date() }));
                 response.end();
             }).resume();
         } else {
