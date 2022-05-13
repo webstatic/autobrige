@@ -16,8 +16,8 @@
     "request": "^2.74.0",
   
    
-    "socket.io": "~1.7.4",
-    "socket.io-client": "~1.7.4",
+    "socket.io": "^1.7.4",
+    "socket.io-client": "^1.7.4",
     "sqlite3": "^5.0.2",
     "step": "^1.0.0",
     "underscore": "^1.13.2",
