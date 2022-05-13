@@ -61,7 +61,7 @@ var listenCommand = function (commandPort) {
     //var httpServer = http.createServer(app);
     var appServer = http.createServer(function (request, response) {
 
-        if (request.method == "GET" && request.url.indexOf("/service") == 0) {
+        if (request.method == "GET" && request.url.indexOf("/sv?") == 0) {
             // console.log(request.url);
             // console.log(request.method);
 
