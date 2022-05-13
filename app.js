@@ -103,4 +103,9 @@ var listenCommand = function (commandPort) {
 
 listenCommand(port);
 
+
+NwServiceProcess.cmdMethod['getInfo'] = function (data, cb) {
+    cb(new Date().toISOString())
+}
+
 console.log('Start App newww');
