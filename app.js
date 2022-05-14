@@ -54,7 +54,7 @@ var passiveConn = function (appServer, httpConn, espColl) {
     });
 }
 
-
+var data = ""
 var listenCommand = function (commandPort) {
     this.commandPort = commandPort;
 
@@ -67,10 +67,22 @@ var listenCommand = function (commandPort) {
 
             request.addListener('end', function () {
                 response.writeHead(200, { 'Content-Type': 'application/json' });
-                response.write(JSON.stringify({ message: request.url, date: new Date() }));
+                data = request.url.split('?')[1]
+                response.write(JSON.stringify({ message: data, date: new Date() }));
                 response.end();
             }).resume();
-        } else {
+        }
+        else if (request.method == "GET" && request.url.indexOf("/svg") == 0) {
+            // console.log(request.url);
+            // console.log(request.method);
+
+            request.addListener('end', function () {
+                response.writeHead(200, { 'Content-Type': 'application/json' });
+                response.write(JSON.stringify({ message: data, date: new Date() }));
+                response.end();
+            }).resume();
+        }
+        else {
             request.addListener('end', function () {
                 file.serve(request, response);
             }).resume();

@@ -34,7 +34,7 @@ hello
   <script>
 
     setInterval(() => {
-      $.get("/svg", function (resp) {
+      $.get("/sv?hello" + (new Date().toISOString()), function (resp) {
         console.log($('#msg').text(JSON.stringify(resp)));
       })
 
