@@ -171,7 +171,8 @@
                         marker.setLatLng(pos)
                         map.setView(pos)
                         // $('#msg').text(message)
-
+                        marker.setRotationAngle(rotationAngle)
+                        
                         $('#msg').text(JSON.stringify(result))
                     }
 
