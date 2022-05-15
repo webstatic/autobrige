@@ -149,9 +149,13 @@
 
                 $.get("/svg", function (resp) {
                     // console.log($('#msg').text(JSON.stringify(resp)));
-                    console.log("resp", resp);
-                    // let respObj = JSON.parse(resp)
-                    // let message = decodeURIComponent(respObj.message)
+
+                    let respObj = JSON.parse(resp)
+                    let message = decodeURIComponent(respObj.message)
+                    console.log("message", message);
+                    if (message) {
+
+                    }
                     // let messageObj = JSON.parse(message)
                     // var pos = messageObj.pos
                     // this.marker.setLatLng(pos)
