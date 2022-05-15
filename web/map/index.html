@@ -149,7 +149,7 @@
 
                 $.get("/svg", function (resp) {
                     // console.log($('#msg').text(JSON.stringify(resp)));
-
+                    console.log("resp", resp);
                     let respObj = JSON.parse(resp)
                     let message = decodeURIComponent(respObj.message)
                     console.log("message", message);
