@@ -150,13 +150,13 @@
                 $.get("/svg", function (resp) {
                     // console.log($('#msg').text(JSON.stringify(resp)));
                     console.log("resp", resp);
-                    let respObj = JSON.parse(resp)
-                    let message = decodeURIComponent(respObj.message)
-                    let messageObj = JSON.parse(message)
-                    var pos = messageObj.pos
-                    this.marker.setLatLng(pos)
-                    map.setView(pos)
-                    $('#msg').text(message)
+                    // let respObj = JSON.parse(resp)
+                    // let message = decodeURIComponent(respObj.message)
+                    // let messageObj = JSON.parse(message)
+                    // var pos = messageObj.pos
+                    // this.marker.setLatLng(pos)
+                    // map.setView(pos)
+                    // $('#msg').text(message)
 
                     // $('#msg').text(JSON.stringify(pos))
                 })
