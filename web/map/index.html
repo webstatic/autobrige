@@ -107,9 +107,9 @@
             })
 
             var baseMaps = {
-
-                "googleSat": googleSat,
                 "arcgisonline": arcgisonline,
+                "googleSat": googleSat,
+
             };
 
             let config = {
@@ -125,7 +125,8 @@
             const funny = L.icon({
                 iconUrl: "../map/Rust__Cesna206.svg",
                 iconSize: [50, 58], // size of the icon
-                iconAnchor: [20, 58], // changed marker icon position
+                //iconAnchor: [20, 58], // changed marker icon position
+                iconAnchor: [10, 29], // changed marker icon position
                 popupAnchor: [0, -60], // changed popup position
             });
 
@@ -153,15 +154,25 @@
                     let message = decodeURIComponent(resp.message)
 
                     if (message) {
-                        let messageObj = JSON.parse(message)
+                        let result = JSON.parse(message)
 
-                        var pos = messageObj.pos
+                        // var pos = messageObj.pos
+                        if (result.sensor.compassHeading)
+                            rotationAngle = result.sensor.compassHeading
+
+                        if (result.gps.lat) {
+                            pos.lat = result.gps.lat
+                            pos.lng = result.gps.lon
+
+                        } else {
+                            pos = result.pos
+                        }
+
                         marker.setLatLng(pos)
                         map.setView(pos)
                         // $('#msg').text(message)
 
-                        $('#msg').text(JSON.stringify(pos))
-                        console.log("message",);
+                        $('#msg').text(JSON.stringify(result))
                     }
 
 
