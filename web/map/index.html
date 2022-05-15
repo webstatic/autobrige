@@ -136,15 +136,13 @@
                 lng: 98.39706840,
             }
             var rotationAngle = 0
-            var marker = this.marker = L.marker(pos, {
+            var marker = L.marker(pos, {
                 icon: funny,
                 rotationAngle: rotationAngle,
                 rotationOrigin: 'center'
             }).addTo(map).bindPopup("test");
 
-            $.get("", function (resp) {
 
-            })
             setInterval(() => {
                 // pos.lat = pos.lat + 0.00001
 
@@ -172,7 +170,7 @@
                         map.setView(pos)
                         // $('#msg').text(message)
                         marker.setRotationAngle(rotationAngle)
-                        
+
                         $('#msg').text(JSON.stringify(result))
                     }
 
