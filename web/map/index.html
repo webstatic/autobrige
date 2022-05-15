@@ -135,7 +135,7 @@
                 lng: 98.39706840,
             }
             var rotationAngle = 0
-            this.marker = L.marker(pos, {
+            var marker = this.marker = L.marker(pos, {
                 icon: funny,
                 rotationAngle: rotationAngle,
                 rotationOrigin: 'center'
@@ -156,7 +156,7 @@
                         let messageObj = JSON.parse(message)
 
                         var pos = messageObj.pos
-                        this.marker.setLatLng(pos)
+                        marker.setLatLng(pos)
                         map.setView(pos)
                         // $('#msg').text(message)
 
