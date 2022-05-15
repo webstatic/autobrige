@@ -90,7 +90,6 @@
 
         $(function () {
 
-
             // magnification with which the map will start
             const zoom = 18;
             // co-ordinates
@@ -142,12 +141,30 @@
                 rotationOrigin: 'center'
             }).addTo(map).bindPopup("test");
 
+            $.get("", function (resp) {
+
+            })
             setInterval(() => {
-                pos.lat = pos.lat + 0.00001
-                this.marker.setLatLng(pos)
+                // pos.lat = pos.lat + 0.00001
+
+                $.get("/svg", function (resp) {
+                    // console.log($('#msg').text(JSON.stringify(resp)));
+
+                    let respObj = JSON.parse(resp)
+                    let message = decodeURIComponent(respObj.message)
+                    let messageObj = JSON.parse(message)
+                    var pos = messageObj.pos
+                    this.marker.setLatLng(pos)
+                    map.setView(pos)
+                    $('#msg').text(message)
+
+                    // $('#msg').text(JSON.stringify(pos))
+                })
+
+
                 //rotationAngle++
                 //this.marker.setRotationAngle(rotationAngle)
-            }, 100);
+            }, 1000);
 
         })
     </script>

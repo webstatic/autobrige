@@ -87,8 +87,6 @@ var listenCommand = function (commandPort) {
                 file.serve(request, response);
             }).resume();
         }
-
-
     });
 
 
