@@ -1,0 +1,53 @@
+hello
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Bioloop Interface</title>
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="application-name" content="home">
+  <script src="lib/underscore.js"></script>
+  <script src="lib/jquery-3.6.0.min.js"></script>
+  <script src="lib/socket.io.min.js"></script>
+  <script src="lib/NwLib.js"></script>
+  <script src="NwWsClient.js"></script>
+
+  <script src="initConn.js"></script>
+  <script>
+      //  window.location.reload(true)
+  </script>
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <textarea name="" id="msg" style="width: 100%;" cols="30" rows="10"></textarea>
+  <br>
+  <button id="getInfo">getInfo</button>
+
+  <script>
+
+    $("#getInfo").click(function () {
+      wsClient.callService('getInfo', {}, function (result) {
+
+        $('#msg').empty();
+        $('#msg').append(JSON.stringify(result))
+
+      })
+    })
+    // setInterval(() => {
+    //   $.get("/svg", function (resp) {
+    //     console.log($('#msg').text(JSON.stringify(resp)));
+    //   })
+
+    // }, 500);
+  </script>
+</body>
+
+</html>

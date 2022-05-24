@@ -1,21 +1,39 @@
-# nodejs-posgresql
+# node-js-getting-started
 
-A demo Quotes REST API using Node.js and PostgreSQL. Built with Express Js for this [Node.js PostgreSQL tutorial](https://geshan.com.np/blog/2021/01/nodejs-postgresql-tutorial/).
+A barebones Node.js app using [Express 4](http://expressjs.com/).
 
-## Deploy with Heroku
+This application supports the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/webstatic/autobrige/tree/master)
+## Running Locally
 
-## Deploy with Vercel
+Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fgeshan%2Fnodejs-posgresql)
+```sh
+$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
+$ cd node-js-getting-started
+$ npm install
+$ npm start
+```
 
-## Depoly with Zeet
+Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-[![Deploy](https://deploy.zeet.co/nodejs-posgresql.svg)](https://deploy.zeet.co/?url=https://github.com/geshan/nodejs-posgresql)
+## Deploying to Heroku
 
-### Running on Vercel
+```
+$ heroku create
+$ git push heroku main
+$ heroku open
+```
+or
 
-At: [https://nodejs-postgresql.vercel.app/quotes](https://nodejs-postgresql.vercel.app/quotes)
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+## Documentation
 
+For more information about using Node.js on Heroku, see these Dev Center articles:
+
+- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
+- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
+- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
+- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)

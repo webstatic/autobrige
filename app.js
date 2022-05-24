@@ -1,9 +1,11 @@
 _ = require("underscore");
-async = require("async");
 
-http = require('http');
-nodestatic = require('node-static');
-file = new nodestatic.Server(__dirname + '/web');
+const express = require('express')
+const path = require('path')
+const http = require('http');
+
+// nodestatic = require('node-static');
+// file = new nodestatic.Server(__dirname + '/web');
 
 NwLib = require('./lib/NwLib.js');
 Class = NwLib.Nwjsface.Class;
@@ -51,12 +53,11 @@ NwServiceMethod = require('./NwServiceMethod.js');
 // });
 
 //------------------------------------------------------------------------
-var port = 80
+var port = process.env.PORT || 80
 var httpConn = null;
 var espColl = null;
 
 var wsServer = null;
-
 
 var passiveConn = function (appServer, httpConn, espColl) {
     var self = this;
@@ -74,7 +75,7 @@ var passiveConn = function (appServer, httpConn, espColl) {
     });
 
     wsServer.setOnDisconnectEventListener(function (socket) {
-        console.log('OnDisconnectEventListener');
+        console.log('OnDisconnectEventListener', socket.id);
     });
 
 
@@ -89,17 +90,21 @@ var passiveConn = function (appServer, httpConn, espColl) {
 }
 
 var listenCommand = function (commandPort) {
-    this.commandPort = commandPort;
 
-    //var httpServer = http.createServer(app);
-    var appServer = http.createServer(function (request, response) {
-        request.addListener('end', function () {
-            //
-            // Serve files!
-            //
-            file.serve(request, response);
-        }).resume();
-    });
+    const app = express();
+    app.use(express.static(path.join(__dirname, 'public')))
+
+    var appServer = http.createServer(app);
+
+    // //var httpServer = http.createServer(app);
+    // var appServer = http.createServer(function (request, response) {
+    //     request.addListener('end', function () {
+    //         //
+    //         // Serve files!
+    //         //
+    //         file.serve(request, response);
+    //     }).resume();
+    // });
 
     passiveConn(appServer, httpConn, espColl);
 
@@ -121,8 +126,11 @@ infoData.pos = pos
 
 // var stringify = require('zipson').stringify;
 NwServiceProcess.cmdMethod['getInfo'] = function (data, cb) {
-    if (cb)
+    if (cb) {
+        infoData.date = new Date()
         cb(infoData)
+    }
+
 }
 
 NwServiceProcess.cmdMethod['setInfo'] = function (data, cb) {
@@ -146,17 +154,18 @@ NwServiceProcess.cmdMethod['reg_node'] = function (data, cb) {
 }
 
 NwServiceProcess.cmdMethod['call_node'] = function (data, cb) {
-    // console.log('call_node', data);
-    let cmd = data.cmd
 
+    let cmd = data.cmd
+    let sid;
     if (data.sid) {
-        var sid = data.sid;
+        sid = data.sid;
     }
     else {
         sid = nodeTable[data.did];
     }
 
     if (sid) {
+        // console.log('call_node', sid);
         wsServer.callService(cmd, data.data, function (resultData) {
             cb(resultData)
         }, sid);

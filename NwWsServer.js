@@ -53,7 +53,7 @@ var NwWsServer = Class(function () {
                         try {
                             self._onMessageEventListener(socket, msgObj, fn);
                         } catch (e) {
-                            throw e;
+                            // throw e;
                             console.log('err WsServer :' + e);
                         }
                     }
@@ -66,8 +66,8 @@ var NwWsServer = Class(function () {
                     if (self._onDisconnectEventListener) {
                         self._onDisconnectEventListener(this);
                     }
-                    
-                   // console.log('user disconnected ' + this.id, self.io.sockets.connected.length);
+
+                    // console.log('user disconnected ' + this.id, self.io.sockets.connected.length);
                 });
             });
         },
